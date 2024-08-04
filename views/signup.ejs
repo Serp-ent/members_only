@@ -8,30 +8,32 @@
 </head>
 
 <body>
+  <%- include('./partials/errors.ejs') %>
   <form method="POST">
     <label>
       First name:
-      <input>
+      <input type="text" name="firstName">
     </label>
 
     <label>
       Last name:
-      <input>
+      <input type="text" name="lastName">
     </label>
 
     <label>
       Username:
-      <input>
+      <input type="text" name="userName">
     </label>
 
 
+    <!-- TODO change password from text type to password type -->
     <label>
       Password:
-      <input>
+      <input type="text" name="password">
     </label>
     <label>
       Confirm Password:
-      <input>
+      <input type="text" name="passwordConfirm">
     </label>
 
     <button type="submit">Create Account</button>
