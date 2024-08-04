@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { User } = require('../db/queries');
+const bcrypt = require('bcryptjs');
 
 const alphaErr = 'must only contain letters'
 
@@ -22,9 +23,9 @@ const createUserPost = [
     }
 
     // TODO: check if already exists user with that username
-    // TODO: create hash password
     const user = req.body;
-    User.create(user.firstName, user.lastName, user.userName, user.password);
+    user.password  = await bcrypt.hash(user.password, 10);
+    await User.create(user.firstName, user.lastName, user.userName, user.password);
   
     res.redirect('/');
   }),
