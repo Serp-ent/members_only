@@ -26,6 +26,16 @@ class User {
       throw err;
     }
   }
+
+  static async findById(id) {
+    try {
+      const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id]);
+      return result.rowCount === 0 ? null : result.rows[0];
+    } catch (err) {
+      console.log('Error when searching for user', err);
+      throw err;
+    }
+  }
 };
 
 class Messages {

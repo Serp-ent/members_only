@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const { User } = require('../db/queries');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 const alphaErr = 'must only contain letters'
 const lengthErr = 'must be minimum 1 and maximum 50 length'
@@ -38,8 +39,6 @@ const validateSignUpForm = [
 
   body('passwordConfirm')
     .custom((value, { req }) => {
-      console.log('password: ', req.body.password);
-      console.log('passwordConfirm: ', value);
       if (value !== req.body.password) {
         throw new Error('Passwords do not match');
       }
@@ -54,6 +53,7 @@ const createUserPost = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      // TODO: on failure don't clear form
       return res.status(400).render('signup', {
         errors: errors.array(),
       });
@@ -61,7 +61,7 @@ const createUserPost = [
 
     const user = req.body;
     user.password = await bcrypt.hash(user.password, 10);
-    await User.create(user.firstName, user.lastName, user.userName, user.password);
+    await User.create(user.firstName, user.lastName, user.username, user.password);
 
     res.redirect('/');
   }),
@@ -72,7 +72,21 @@ const createUserGet = (req, res) => {
   res.render('signup');
 }
 
+const loginUserGet = (req, res) => {
+  res.render('login');
+}
+
+const loginUserPost = passport.authenticate('local', {
+  successRedirect: "/",
+  // TODO: how to show error about incorrect credentials
+  // TODO: on failure don't clear form
+  failureRedirect: '/log-in',
+});
+
 module.exports = {
   createUserGet,
   createUserPost,
+
+  loginUserGet,
+  loginUserPost,
 }
