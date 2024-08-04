@@ -15,23 +15,14 @@ app.use(passport.session());
 passport.use(new LocalStrategy(async (userName, password, done) => {
   try {
     const user = await User.findByUsername(userName);
-    // TODO: change messages
-    console.log(`finding user with ${userName}`);
     if (!user) {
-      console.log(`not found...`);
-      return done(null, false, { message: `No users with ${userName} username` });
+      return done(null, false, { message: 'Incorrect credentials' });
     }
-    console.log(`found...`);
-    console.log(`hashing password to see if they match`);
-
     // hash password before
     const match = await bcrypt.compare(password, user.password)
-    console.log(user);
     if (!match) {
-      console.log('dont match');
-      return done(null, false, { message: `There is user like ${userName} but incorrect password` });
+      return done(null, false, { message: "Incorrect credentials" });
     }
-    console.log('match');
 
     return done(null, user);
   } catch (err) {

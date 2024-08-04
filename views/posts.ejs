@@ -8,6 +8,9 @@
 </head>
 
 <body>
+  <% if (user) {%>
+  <h3>Welcome back <%= user.first_name %></h3>
+  <%}%>
   <% messages.forEach(msg => { %>
   <div style="border: 1px solid black; margin: 8px;">
     <b><%= msg.username %></b> at <%= msg.timestamp %>
