@@ -15,7 +15,7 @@ const createUsersTable = `
         last_name VARCHAR(50) NOT NULL,
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
-        membership_status VARCHAR(50) DEFAULT 'active'
+        membership_status BOOLEAN DEFAULT false
     );
 `;
 
@@ -33,8 +33,8 @@ const createMessagesTable = `
 const insertSampleData = `
     INSERT INTO users (first_name, last_name, username, password, membership_status)
     VALUES
-        ('John', 'Doe', 'john.doe@example.com', 'hashed_password1', 'active'),
-        ('Jane', 'Smith', 'jane.smith@example.com', 'hashed_password2', 'inactive');
+        ('John', 'Doe', 'john.doe@example.com', 'hashed_password1', true),
+        ('Jane', 'Smith', 'jane.smith@example.com', 'hashed_password2', false);
 
     INSERT INTO messages (title, text, user_id)
     VALUES

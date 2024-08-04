@@ -6,7 +6,7 @@ class User {
     lastName,
     userName,
     password,
-    member = 'active',
+    member = false,
   ) {
     try {
       const result = await pool.query('INSERT INTO users (first_name, last_name, username, password, membership_status) VALUES ($1, $2, $3, $4, $5)',

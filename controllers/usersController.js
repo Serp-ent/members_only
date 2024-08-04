@@ -49,7 +49,8 @@ const validateSignUpForm = [
 ];
 
 const createUserPost = [
-  validateSignUpForm,
+  // WARNING: enable validation
+  // validateSignUpForm,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
