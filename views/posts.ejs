@@ -14,7 +14,7 @@
   <% messages.forEach(msg => { %>
   <div style="border: 1px solid black; margin: 8px;">
     <% if (user) {%>
-    <b><%= msg.username %></b> at <%= msg.timestamp %>
+    <b><%= msg.username %></b> at <%= msg.added %>
     <%}%>
     <h3><%= msg.title %></h3>
     <p><%= msg.text %></p>
