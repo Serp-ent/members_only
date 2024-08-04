@@ -28,6 +28,20 @@ class User {
   }
 };
 
+class Messages {
+  static async getAllWithAuthors() {
+    try {
+      const query = 'SELECT messages.title, messages.text, messages.timestamp, users.username FROM messages JOIN users ON users.id = messages.user_id';
+      const result = await pool.query(query);
+      return result.rows;
+    } catch (err) {
+      console.log('Error when searching for users');
+      throw err;
+    }
+  }
+}
+
 module.exports = {
   User,
+  Messages,
 };
