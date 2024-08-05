@@ -100,12 +100,25 @@ const membershipPost = (req, res) => {
   console.log(`User ${req.user.username} [${req.user.id}] added to membership`);
   res.redirect('/');
 }
+
+const logoutUserPost = (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect('/');
+  });
+}
+
 module.exports = {
   createUserGet,
   createUserPost,
 
   loginUserGet,
   loginUserPost,
+
+  logoutUserPost,
 
   membershipGet,
   membershipPost,

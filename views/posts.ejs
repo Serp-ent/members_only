@@ -10,7 +10,14 @@
 <body>
   <% if (user) {%>
   <h3>Welcome back <%= user.first_name %></h3>
+  <form method="POST" action="/log-out">
+    <button type="submit">Logout</button>
+  </form>
   <h4>Membership status: <%= (user.membership_status) ? 'Active' : 'Not Active' %></h4>
+  <%} else {%>
+  <form method="POST" action="/log-in">
+    <button type="submit">Login</button>
+  </form>
   <%}%>
   <% messages.forEach(msg => { %>
   <div style="border: 1px solid black; margin: 8px;">
