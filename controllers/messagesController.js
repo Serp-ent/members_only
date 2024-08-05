@@ -14,6 +14,7 @@ const showMessages = async (req, res) => {
       hour12: false
     })
   })
+  
   res.render('posts', {
     messages,
     user: req.user

@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+require('dotenv').config();
 const asyncHandler = require('express-async-handler');
 const { User } = require('../db/queries');
 const bcrypt = require('bcryptjs');
@@ -83,10 +84,29 @@ const loginUserPost = passport.authenticate('local', {
   failureRedirect: '/log-in',
 });
 
+// TODO: user should be validated to view this
+const membershipGet = (req, res) => {
+  res.render('membership', { user: req.user });
+}
+
+const membershipPost = (req, res) => {
+  const key = req.body.membershipKey;
+  if (key !== process.env.SECRET_CODE) {
+    res.redirect('/membership');
+    return;
+  }
+
+  User.authorize(req.user.id);
+  console.log(`User ${req.user.username} [${req.user.id}] added to membership`);
+  res.redirect('/');
+}
 module.exports = {
   createUserGet,
   createUserPost,
 
   loginUserGet,
   loginUserPost,
+
+  membershipGet,
+  membershipPost,
 }

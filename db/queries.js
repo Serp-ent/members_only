@@ -36,6 +36,16 @@ class User {
       throw err;
     }
   }
+
+  static async authorize(id, active = true) {
+    try {
+      await pool.query('UPDATE users SET membership_status = $2 WHERE id = $1;', [id, active]);
+
+    } catch( err) {
+      console.log('Error when giving membership to user', err);
+      throw err;
+    }
+  }
 };
 
 class Messages {
