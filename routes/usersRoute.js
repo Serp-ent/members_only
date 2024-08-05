@@ -17,4 +17,9 @@ usersRouter.use('/membership', auth.checkAuthentication);
 usersRouter.get('/membership', controller.membershipGet);
 usersRouter.post('/membership', controller.membershipPost);
 
+
+usersRouter.use('/admin', auth.checkAuthentication);
+usersRouter.get('/admin', controller.adminGet);
+usersRouter.post('/admin', controller.adminPost);
+
 module.exports = usersRouter;

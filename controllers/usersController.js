@@ -111,6 +111,23 @@ const logoutUserPost = (req, res) => {
   });
 }
 
+
+const adminGet = (req, res) => {
+  res.render('admin', { user: req.user });
+}
+
+const adminPost = (req, res) => {
+  const key = req.body.adminKey;
+  if (key !== process.env.ADMIN_CODE) {
+    res.redirect('/admin');
+    return;
+  }
+
+  User.makeAdmin(req.user.id);
+  console.log(`User ${req.user.username} [${req.user.id}] added as admin`);
+  res.redirect('/');
+}
+
 module.exports = {
   createUserGet,
   createUserPost,
@@ -122,4 +139,7 @@ module.exports = {
 
   membershipGet,
   membershipPost,
+
+  adminGet,
+  adminPost,
 }

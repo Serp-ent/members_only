@@ -8,17 +8,17 @@
 </head>
 
 <body>
-  <% if (!user.membership_status) { %>
+  <% if (!user.isAdmin) { %>
   <form method="POST">
     <label>
-      Membership Key:
-      <input type="text" name="membershipKey">
+      Admin Key:
+      <input type="text" name="adminKey">
     </label>
     <button type="submit">Enter key</button>
   </form>
   <% } else {%>
-    <p>You already have membership status</p>
-    <%}%>
+  <p>You are already an admin</p>
+  <%}%>
 </body>
 
 </html>

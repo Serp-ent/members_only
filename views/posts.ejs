@@ -44,6 +44,11 @@
     <textarea name="text"></textarea>
     <button type="submit">New Post</button>
   </form>
+  <%if (!user.isadmin) {%>
+  <a href="/admin">Enter admin key</a>
+  <%} else {%>
+  <p>You are admin</p>
+  <%} %>
   <%} else {%>
   <a href="/membership">Enter secret key</a>
   <%}%>

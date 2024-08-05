@@ -46,6 +46,15 @@ class User {
       throw err;
     }
   }
+
+  static async makeAdmin(id, active = true) {
+    try {
+      await pool.query('UPDATE users SET isAdmin = $2 WHERE id = $1;', [id, active]);
+    } catch (err) {
+      console.log('Error when giving membership to user', err);
+      throw err;
+    }
+  }
 };
 
 class Messages {
