@@ -32,9 +32,9 @@
   </div>
   <% });%>
 
-  <!-- handle new post creation -->
   <% if (user) {%>
   <% if(user.membership_status) { %>
+  <%- include('./partials/errors.ejs') %>
   <h5>Create new messages</h5>
   <form method="POST">
     <label>
