@@ -1,5 +1,6 @@
 const { Messages } = require("../db/queries");
 const { body, validationResult } = require('express-validator');
+const auth = require('./authController');
 
 const showMessages = async (req, res) => {
   const messages = await Messages.getAllWithAuthors();
@@ -66,7 +67,18 @@ const addMessages = [
   },
 ]
 
+const deleteMessage = async (req, res) => {
+  await Messages.deleteMessage(req.params.id);
+  res.redirect('/');
+}
+
+const deleteMessagePost = [
+  auth.checkIfAdmin,
+  deleteMessage
+]
+
 module.exports = {
   showMessages,
   addMessages,
+  deleteMessagePost,
 }

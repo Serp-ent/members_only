@@ -29,29 +29,36 @@
     <%}%>
     <h3><%= msg.title %></h3>
     <p><%= msg.text %></p>
+
+
+    <% if (user && user.isadmin) {%>
+    <form action="/<%=msg.id %>/delete" method="POST">
+      <button>Delete</button>
+    </form>
+    <%}%>
   </div>
   <% });%>
 
-  <% if (user) {%>
-  <% if(user.membership_status) { %>
-  <%- include('./partials/errors.ejs') %>
-  <h5>Create new messages</h5>
-  <form method="POST">
-    <label>
-      Title:
-      <input type="text" name="title">
-    </label>
-    <textarea name="text"></textarea>
-    <button type="submit">New Post</button>
-  </form>
-  <%if (!user.isadmin) {%>
-  <a href="/admin">Enter admin key</a>
-  <%} else {%>
-  <p>You are admin</p>
-  <%} %>
-  <%} else {%>
-  <a href="/membership">Enter secret key</a>
-  <%}%>
+    <% if (user) {%>
+    <% if(user.membership_status) { %>
+    <%- include('./partials/errors.ejs') %>
+    <h5>Create new messages</h5>
+    <form method="POST">
+      <label>
+        Title:
+        <input type="text" name="title">
+      </label>
+      <textarea name="text"></textarea>
+      <button type="submit">New Post</button>
+    </form>
+    <%if (!user.isadmin) {%>
+    <a href="/admin">Enter admin key</a>
+    <%} else {%>
+    <p>You are admin</p>
+    <%} %>
+    <%} else {%>
+    <a href="/membership">Enter secret key</a>
+    <%}%>
   <%}%>
 
 </body>

@@ -7,6 +7,8 @@ messagesRouter.use(express.urlencoded({ extended: true }));
 messagesRouter.get('/', controller.showMessages);
 messagesRouter.post('/', controller.addMessages);
 
+messagesRouter.post('/:id/delete', controller.deleteMessagePost)
+
 module.exports = messagesRouter;
 
 

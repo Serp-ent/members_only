@@ -60,7 +60,7 @@ class User {
 class Messages {
   static async getAllWithAuthors() {
     try {
-      const query = 'SELECT messages.title, messages.text, messages.timestamp, users.username FROM messages JOIN users ON users.id = messages.user_id';
+      const query = 'SELECT messages.id, messages.title, messages.text, messages.timestamp, users.username FROM messages JOIN users ON users.id = messages.user_id';
       const result = await pool.query(query);
       return result.rows;
     } catch (err) {
@@ -77,6 +77,17 @@ class Messages {
       console.log('Error when creating message');
       throw err;
     }
+  }
+
+  static async deleteMessage(id) {
+    try {
+      const query = 'DELETE FROM messages WHERE id = $1';
+      await pool.query(query, [id]);
+    } catch (err) {
+      console.log('Error when deleting message');
+      throw err;
+    }
+
   }
 }
 
