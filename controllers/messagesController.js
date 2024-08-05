@@ -21,6 +21,13 @@ const showMessages = async (req, res) => {
   });
 }
 
+// TODO: add messages validations 
+const addMessages = async (req, res) => {
+  await Messages.createMessage(req.body.title, req.body.text, req.user.id)
+  res.redirect('/');
+}
+
 module.exports = {
   showMessages,
+  addMessages,
 }

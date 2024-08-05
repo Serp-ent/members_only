@@ -41,7 +41,7 @@ class User {
     try {
       await pool.query('UPDATE users SET membership_status = $2 WHERE id = $1;', [id, active]);
 
-    } catch( err) {
+    } catch (err) {
       console.log('Error when giving membership to user', err);
       throw err;
     }
@@ -56,6 +56,16 @@ class Messages {
       return result.rows;
     } catch (err) {
       console.log('Error when searching for users');
+      throw err;
+    }
+  }
+
+  static async createMessage(title, text, authorId) {
+    try {
+      const query = 'INSERT INTO messages (title, timestamp, text, user_id) VALUES ($1, $2, $3, $4)';
+      await pool.query(query, [title, new Date(), text, authorId]);
+    } catch (err) {
+      console.log('Error when creating message');
       throw err;
     }
   }
